@@ -6,8 +6,6 @@
 
 Turn your mobile phone into a powerful wireless remote control for your Windows PC. This application runs a secure local web server, allowing you to control your mouse, keyboard, and media from any modern mobile browser on your network.
 
-![Remote Control In Action](https://i.imgur.com/your-screenshot-url.gif) 
-*(Consider replacing this with a GIF of the app in action)*
 
 ## ✨ Features
 
