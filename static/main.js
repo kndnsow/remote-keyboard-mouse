@@ -265,6 +265,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "AudioVolumeUp") {
+      e.preventDefault();
+      sendRequest("/api/hotkey", { keys: ["volumeup"] });
+    } else if (e.key === "AudioVolumeDown") {
+      e.preventDefault();
+      sendRequest("/api/hotkey", { keys: ["volumedown"] });
+    }
+  });
+
   async function init() {
     try {
       const res = await fetch("/api/connect", { method: "POST" });
