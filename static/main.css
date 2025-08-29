@@ -1,0 +1,196 @@
+:root {
+  --bg-color: #121212;
+  --primary-color: #000000;
+  --secondary-color: #2a2a2a;
+  --accent-color: #03dac6;
+  --text-color: #e0e0e0;
+  --font-family: -apple-system, sans-serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-tap-highlight-color: transparent;
+}
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+#app-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  flex-shrink: 0;
+}
+#status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+.connected {
+  background-color: #4caf50;
+}
+.disconnected {
+  background-color: #f44336;
+}
+#status-text {
+  font-weight: 500;
+  font-size: 0.9em;
+}
+#air-mouse-toggle {
+  margin-left: auto;
+  margin-right: 15px;
+  background-color: var(--secondary-color);
+  border: 1px solid #555;
+  color: var(--text-color);
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+#air-mouse-toggle.active {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border-color: var(--accent-color);
+  font-weight: bold;
+}
+#fullscreen-button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 24px;
+}
+#content-panels {
+  flex-grow: 1;
+  display: flex;
+}
+.panel {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.panel.active {
+  display: flex;
+}
+
+#mouse-panel {
+  justify-content: space-between;
+}
+.air-mouse-info {
+  flex-shrink: 0;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#reset-gyro-button {
+  padding: 8px 16px;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  border-radius: 20px;
+}
+#touchpad-area {
+  flex-grow: 1;
+  background-color: var(--primary-color);
+  touch-action: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.touchpad-instructions {
+  text-align: center;
+  opacity: 0.3;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+#keyboard-panel {
+  padding: 10px;
+  justify-content: flex-start;
+}
+#special-keys-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+  gap: 8px;
+  margin-bottom: 15px;
+}
+.special-key {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  padding: 12px 5px;
+  font-family: var(--font-family);
+}
+.special-key.sticky {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  font-weight: bold;
+}
+.keyboard-info {
+  padding: 10px;
+  text-align: center;
+  opacity: 0.7;
+  width: 100%;
+}
+#live-keyboard-input {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  opacity: 0;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 320px;
+  margin: auto;
+  padding: 20px;
+}
+.media-btn {
+  padding: 25px;
+  font-size: 28px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#app-nav {
+  display: flex;
+  background-color: var(--primary-color);
+  flex-shrink: 0;
+}
+.nav-btn {
+  flex-grow: 1;
+  padding: 15px 10px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  opacity: 0.6;
+  font-size: 16px;
+  border-top: 3px solid transparent;
+}
+.nav-btn.active {
+  opacity: 1;
+  border-color: var(--accent-color);
+}

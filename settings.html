@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remote Control - Settings</title>
+    <link rel="stylesheet" href="/static/main.css" />
+    <style>
+      /* Base Styles */
+      body {
+        overflow-y: auto;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      #app-container {
+        width: 100%;
+        max-width: 900px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header#app-header {
+        background: var(--primary-color);
+        padding: 15px 20px;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: var(--accent-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      main {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* Settings Form */
+      .settings-form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .setting-group {
+        background: var(--primary-color);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .setting-group:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .setting-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--accent-color);
+      }
+
+      .setting-group .description {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        opacity: 0.75;
+        margin-bottom: 15px;
+      }
+
+      input[type="number"],
+      input[type="text"] {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--secondary-color);
+        border: 1px solid #555;
+        color: var(--text-color);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input:focus {
+        border-color: var(--accent-color);
+        outline: none;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Save Button */
+      button#save-button {
+        padding: 14px;
+        font-size: 1rem;
+        font-weight: bold;
+        background: var(--accent-color);
+        color: var(--bg-color);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      button#save-button:hover {
+        background: #ffb84d;
+        transform: scale(1.03);
+      }
+
+      /* Toast Notification */
+      #toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #4caf50;
+        color: white;
+        padding: 14px 22px;
+        border-radius: 8px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.5s, bottom 0.5s;
+        font-size: 0.95rem;
+      }
+      #toast.show {
+        opacity: 1;
+        bottom: 35px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        main {
+          padding: 15px;
+        }
+        .settings-form {
+          gap: 18px;
+        }
+        .setting-group {
+          padding: 16px;
+        }
+        button#save-button {
+          padding: 12px;
+          font-size: 0.95rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header#app-header {
+          font-size: 1.1rem;
+          padding: 12px;
+        }
+        .setting-group label {
+          font-size: 0.95rem;
+        }
+        .setting-group .description {
+          font-size: 0.8rem;
+        }
+        input[type="number"],
+        input[type="text"] {
+          font-size: 0.9rem;
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app-container">
+      <header id="app-header">
+        <span id="status-text">Settings</span>
+      </header>
+
+      <main>
+        <form id="settings-form" class="settings-form">
+          <div class="setting-group">
+            <label for="port">Server Port</label>
+            <p class="description">
+              The network port for the server. Requires an application restart
+              to take effect.
+            </p>
+            <input type="number" id="port" name="port" min="1024" max="65535" />
+          </div>
+          <div class="setting-group">
+            <label for="mouse_sensitivity">Air Mouse Sensitivity</label>
+            <p class="description">
+              Controls how much the cursor moves based on your device's tilt.
+              Higher is faster.
+            </p>
+            <input
+              type="number"
+              id="mouse_sensitivity"
+              name="mouse_sensitivity"
+              min="1"
+              max="100"
+            />
+          </div>
+
+          <div class="setting-group">
+            <label for="touchpad_sensitivity">Touch Pad Max Speed</label>
+            <p class="description">
+              The maximum speed (pixels per update) of the Touch Pad to prevent
+              jumps. Higher allows faster flicks.
+            </p>
+            <input
+              type="number"
+              id="touchpad_sensitivity"
+              name="touchpad_sensitivity"
+              min="1"
+              max="20"
+            />
+          </div>
+
+          <div class="setting-group">
+            <label for="cooldown_seconds"
+              >Physical Input Cooldown (seconds)</label
+            >
+            <p class="description">
+              How long the remote is disabled after you use your physical mouse
+              or keyboard.
+            </p>
+            <input
+              type="number"
+              id="cooldown_seconds"
+              name="cooldown_seconds"
+              min="0"
+              max="60"
+            />
+          </div>
+
+          <div class="setting-group">
+            <label for="blocked_ips">Blocked IP Addresses</label>
+            <p class="description">
+              Comma-separated list of IP addresses to block from connecting.
+            </p>
+            <input
+              type="text"
+              id="blocked_ips"
+              name="blocked_ips"
+              placeholder="e.g., 192.168.1.15, 192.168.1.20"
+            />
+          </div>
+
+          <button type="submit" id="save-button">Save Settings</button>
+        </form>
+      </main>
+    </div>
+    <div id="toast"></div>
+
+    <script src="/static/settings.js"></script>
+  </body>
+</html>

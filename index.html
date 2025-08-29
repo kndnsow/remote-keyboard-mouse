@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <title>Remote Control</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="/static/main.css"
+    />
+  </head>
+  <body>
+    <div id="app-container">
+      <header id="app-header">
+        <div id="status-indicator" class="disconnected"></div>
+        <span id="status-text">Disconnected</span>
+        <button id="air-mouse-toggle">Air Off</button>
+        <button id="fullscreen-button">⛶</button>
+      </header>
+
+      <main id="content-panels">
+        <div id="mouse-panel" class="panel active">
+          <div class="air-mouse-info" style="display: none">
+            <p class="helper-text" style="display: none">
+              Tilt to move, use pad for gestures
+            </p>
+            <button id="reset-gyro-button" style="display: none">
+              Recalibrate
+            </button>
+          </div>
+          <div id="touchpad-area">
+            <div class="touchpad-instructions">
+              <p>Tap: L-Click | Hold: R-Click | 2-Finger: Scroll</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="keyboard-panel" class="panel">
+          <div id="special-keys-grid">
+            <button class="special-key" data-key="Escape">Esc</button>
+            <button class="special-key" data-key="home">Home</button>
+            <button class="special-key" data-key="end">End</button>
+            <button class="special-key" data-key=""></button>
+            <button class="special-key" data-key="pageup">PgUp</button>
+            <button class="special-key" data-key="tab">Tab</button>
+            <button class="special-key" data-key="capslock">Caps Lock</button>
+            <button class="special-key" data-key=""></button>
+            <button class="special-key" data-key="ArrowUp">▲</button>
+            <button class="special-key" data-key="pagedown">PgDn</button>
+            <button class="special-key" data-key="shift">Shift</button>
+            <button class="special-key" data-key="delete">Del</button>
+            <button class="special-key" data-key="ArrowLeft">◄</button>
+            <button class="special-key" data-key="ArrowDown">▼</button>
+            <button class="special-key" data-key="ArrowRight">►</button>
+            <button class="special-key" data-key="F1">F1</button>
+            <button class="special-key" data-key="F2">F2</button>
+            <button class="special-key" data-key="F3">F3</button>
+            <button class="special-key" data-key="F4">F4</button>
+            <button class="special-key" data-key="F5">F5</button>
+            <button class="special-key" data-key="F6">F6</button>
+            <button class="special-key" data-key="F7">F7</button>
+            <button class="special-key" data-key="F8">F8</button>
+            <button class="special-key" data-key="F9">F9</button>
+            <button class="special-key" data-key="F10">F10</button>
+            <button class="special-key" data-key="ctrl">Ctrl</button>
+            <button class="special-key" data-key="win">⊞</button>
+            <button class="special-key" data-key="alt">Alt</button>
+            <button class="special-key" data-key="F11">F11</button>
+            <button class="special-key" data-key="F12">F12</button>
+          </div>
+          <div class="keyboard-info">
+            <p>Tap here to start typing live</p>
+            <input
+              type="text"
+              id="live-keyboard-input"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+            />
+          </div>
+        </div>
+
+        <div id="media-panel" class="panel">
+          <div class="media-grid">
+            <button class="media-btn" data-action="prevtrack">⏮</button>
+            <button class="media-btn" data-action="playpause">⏯</button>
+            <button class="media-btn" data-action="nexttrack">⏭</button>
+            <button class="media-btn" data-action="volumeup">🔊</button>
+            <button class="media-btn" data-action="volumedown">🔉</button>
+            <button class="media-btn" data-action="volumemute">🔇</button>
+          </div>
+        </div>
+      </main>
+
+      <nav id="app-nav">
+        <button class="nav-btn active" data-panel="mouse-panel">Mouse</button>
+        <button class="nav-btn" data-panel="keyboard-panel">Keyboard</button>
+        <button class="nav-btn" data-panel="media-panel">Media</button>
+      </nav>
+    </div>
+    <script src="/static/main.js"></script>
+  </body>
+</html>
