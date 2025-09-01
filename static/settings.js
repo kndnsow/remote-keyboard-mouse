@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "port",
       "mouse_sensitivity",
       "touchpad_sensitivity",
+      "scroll_sensitivity",
       "cooldown_seconds",
     ].forEach((key) => {
       if (newSettings[key]) newSettings[key] = parseInt(newSettings[key], 10);

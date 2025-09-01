@@ -25,7 +25,7 @@ def resource_path(relative_path):
 
 app_state = {
     "connected_device_ip": None, "last_physical_input_time": None, "cooldown_seconds": 0,
-    "mouse_sensitivity": 50, "mouse_max_speed": 5, "air_mouse_last_orientation": None,
+    "mouse_sensitivity": 50, "mouse_max_speed": 5, "scroll_sensitivity": 5, "air_mouse_last_orientation": None,
     "current_port": 4443
 }
 CONFIG_FILE = "config.ini"
@@ -38,12 +38,13 @@ def load_config():
     config = configparser.ConfigParser()
     if not config.read(CONFIG_FILE):
         config["SERVER"] = {"port": "4443"}
-        config["SETTINGS"] = {"mouse_sensitivity": "50", "touchpad_sensitivity": "5", "cooldown_seconds": "0", "startup": "False"}
+        config["SETTINGS"] = {"mouse_sensitivity": "50", "touchpad_sensitivity": "5", "scroll_sensitivity": "5", "cooldown_seconds": "0", "startup": "False"}
         config["DEVICES"] = {"blocked_ips": ""}
         with open(CONFIG_FILE, "w") as configfile: config.write(configfile)
     
     app_state["mouse_sensitivity"] = config.getint("SETTINGS", "mouse_sensitivity")
     app_state["mouse_max_speed"] = config.getint("SETTINGS", "touchpad_sensitivity")
+    app_state["scroll_sensitivity"] = config.getint("SETTINGS", "scroll_sensitivity")
     app_state["cooldown_seconds"] = config.getint("SETTINGS", "cooldown_seconds")
     app_state["current_port"] = config.getint("SERVER", "port")
     return config
@@ -131,12 +132,27 @@ def api_airmouse():
     return jsonify({"status": "ok"})
 @app.route("/api/touchpad", methods=["POST"])
 def api_touchpad():
-    data = request.json; action = data.get("action")
+    data = request.json
+    action = data.get("action")
     with pyautogui_lock:
-        if action == "move": pyautogui.move(data.get("dx", 0) * app_state["mouse_max_speed"], data.get("dy", 0) * app_state["mouse_max_speed"])
-        elif action == "left_click": pyautogui.click(button='left')
-        elif action == "right_click": pyautogui.click(button='right')
-        elif action == "scroll": pyautogui.scroll(int(data.get("dy", 0) * -1))
+        if action == "move":
+            dx = int(data.get("dx", 0) or 0)
+            dy = int(data.get("dy", 0) or 0)
+            pyautogui.move(dx * app_state["mouse_max_speed"], dy * app_state["mouse_max_speed"])
+        elif action == "left_click":
+            pyautogui.click(button='left')
+        elif action == "right_click":
+            pyautogui.click(button='right')
+
+        elif action == "double_click":
+            pyautogui.doubleClick()
+        elif action == "scroll":
+            scroll_dy = int(data.get("dy", 0) or 0)
+            pyautogui.scroll(scroll_dy * app_state["scroll_sensitivity"])
+        elif action == "mouse_down":
+            pyautogui.mouseDown(button='left')
+        elif action == "mouse_up":
+            pyautogui.mouseUp(button='left')
     return jsonify({"status": "ok"})
 @app.route("/api/key_action", methods=["POST"])
 def api_key_action():
